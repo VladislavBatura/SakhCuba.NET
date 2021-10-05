@@ -1,0 +1,101 @@
+﻿@model SakhCuba.Models.AdminEditViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Nickname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Nickname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.DiscordName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.DiscordName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Age)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.About)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.About)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.FavoriteBook)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.FavoriteBook)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.ReasonToPlay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.ReasonToPlay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Rules)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Rules)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Decision.DecisionName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Decision.DecisionName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Application.IP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Application.IP)
+        </dd>
+    </dl>
+    <form asp-action="Details" asp-controller="Admin">
+        <div class="form-group">
+            <input type="hidden" asp-for="Application.Id" />
+            <select asp-for="Application.DecisionId" class="dropdown">
+                @foreach (var d in Model.Decisions)
+                {
+                    <option value="@d.DecisionId">@d.DecisionName</option>
+                }
+            </select>
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+<div>
+    <a asp-action="Index" asp-controller="Admin">Вернуться</a>
+</div>

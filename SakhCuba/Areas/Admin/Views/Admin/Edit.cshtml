@@ -1,0 +1,74 @@
+﻿@model SakhCuba.Models.AdminEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Application</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-controller="Admin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Application.Id" />
+            <div class="form-group">
+                <label asp-for="Application.Name" class="control-label"></label>
+                <input asp-for="Application.Name" class="form-control" />
+                <span asp-validation-for="Application.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.Nickname" class="control-label"></label>
+                <input asp-for="Application.Nickname" class="form-control" />
+                <span asp-validation-for="Application.Nickname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.DiscordName" class="control-label"></label>
+                <input asp-for="Application.DiscordName" class="form-control" />
+                <span asp-validation-for="Application.DiscordName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.Age" class="control-label"></label>
+                <input asp-for="Application.Age" class="form-control" />
+                <span asp-validation-for="Application.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.About" class="control-label"></label>
+                <textarea asp-for="Application.About" class="form-control"></textarea>
+                <span asp-validation-for="Application.About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.FavoriteBook" class="control-label"></label>
+                <input asp-for="Application.FavoriteBook" class="form-control" />
+                <span asp-validation-for="Application.FavoriteBook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.ReasonToPlay" class="control-label"></label>
+                <textarea asp-for="Application.ReasonToPlay" class="form-control"></textarea>
+                <span asp-validation-for="Application.ReasonToPlay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.Rules" class="control-label"></label>
+                <input asp-for="Application.Rules" class="form-control" />
+                <span asp-validation-for="Application.Rules" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="Application.DecisionId" class="dropdown">
+                    @foreach(var d in Model.Decisions)
+                    {
+                        <option value="@d.DecisionId">@d.DecisionName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Admin">Вернуться</a>
+</div>
+

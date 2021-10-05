@@ -1,0 +1,97 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Админ-меню";
+}
+
+    <style>
+        @@font-face {
+            font-family: 'FontAwesome';
+            src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal
+        }
+
+        .glyphicon {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        .glyphicon-chevron-down:before {
+            content: "\f078";
+        }
+
+        .glyphicon-chevron-up:before {
+            content: "\f077";
+        }
+    </style>
+
+<form method="get">
+    <div class="form-group form-inline">
+        <label>Ник: </label>
+        <input name="searchString" value="@Model.FilterViewModel.SelectedSearchString" class="form-control" />
+
+        <label>Решение: </label>
+        <select name="decision" asp-items="Model.FilterViewModel.Decisions" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-default" /> 
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+               asp-route-searchString="@(Model.FilterViewModel.SelectedSearchString)"
+               asp-route-decision="@(Model.FilterViewModel.SelectedDecision)">Имя</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.NicknameSort)"
+               asp-route-searchString="@(Model.FilterViewModel.SelectedSearchString)"
+               asp-route-decision="@(Model.FilterViewModel.SelectedDecision)">Никнейм</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.DiscordNameSort)"
+               asp-route-searchString="@(Model.FilterViewModel.SelectedSearchString)"
+               asp-route-decision="@(Model.FilterViewModel.SelectedDecision)">Дискорд</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.AgeSort)"
+               asp-route-searchString="@(Model.FilterViewModel.SelectedSearchString)"
+               asp-route-decision="@(Model.FilterViewModel.SelectedDecision)">Возраст</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.DecisionSort)"
+               asp-route-searchString="@(Model.FilterViewModel.SelectedSearchString)"
+               asp-route-decision="@(Model.FilterViewModel.SelectedDecision)">Решение</a>
+        </th>
+    </tr>
+    @foreach(var item in Model.Applications)
+    {
+<tr>
+    <td>@item.Name</td>
+    <td>@item.Nickname</td>
+    <td>@item.DiscordName</td>
+    <td>@item.Age</td>
+    <td>@item.Decision.DecisionName</td>
+    <td>
+        <a asp-action="Details" asp-controller="Admin" asp-route-id="@item.Id">Подробнее</a>
+        <a asp-action="Edit" asp-controller="Admin" asp-route-id="@item.Id">Редактировать</a>
+        <a asp-action="Delete" asp-controller="Admin" asp-route-id="@item.Id">Удалить</a>
+    </td>
+</tr>
+    }
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-searchString="@(Model.FilterViewModel.SelectedSearchString)"
+           page-url-decision="@(Model.FilterViewModel.SelectedDecision)"
+           page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>

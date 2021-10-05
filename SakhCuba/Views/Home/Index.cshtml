@@ -1,0 +1,109 @@
+﻿@model IEnumerable<SakhCuba.Models.Application>
+@{
+    ViewData["Title"] = "Домашная страница";
+}
+
+<div class="container">
+    <div class="promo__wrapper">
+        <div>
+            <h1 class="promo__title _anim-items _anim-no-hide">Ванильный сервер Minecraft</h1>
+            <div class="promo__descr _anim-items _anim-no-hide">
+                <p>СахКуба - это сервер по кубачу без приватов, халявы и доната. Только классическое атмосферное выживание с другими игроками. </p>
+                <br>
+                <p>Для создания уютной и дружеской атмосферы попасть на сервер можно только после заполнения анкеты.</p>
+            </div>
+            <button class="promo__button button _anim-items _anim-no-hide">Заполнить анкету</button>
+        </div>
+        <div class="promo__phantom">
+            <img src="https://sakhcuba.ru/wp-content/themes/sakhcuba/assets/img/promo/phantom-min.png" alt="Багровый фантомас" class="promo__phantom-img" loading="lazy">
+        </div>
+    </div>
+</div>
+<section class="features">
+    <div class="container">
+        <div class="features__descr">
+            <h2 class="title-h2">О проекте</h2>
+            <p>Sakh Cuba - приватный ванильный сервер с классическим выживанием без донатов и халявы. У нас вы можете отдохнуть и насладиться атмосферной игрой в дружном коллективе</p>
+        </div>
+        <div class="features__item _anim-items _anim-no-hide">
+            <h3 class="title-h3">Ванила</h3>
+            <div class="descr">
+                Классическое выживание каким его задумали разработчики
+                <br><br> Сложность: сложная
+            </div>
+            <div class="square"></div>
+        </div>
+        <div class="features__item _anim-items _anim-no-hide">
+            <h3 class="title-h3">Вайтлист</h3>
+            <div class="descr">
+                Попасть на сервер можно после заполнения анкеты и проверки её администрацией
+            </div>
+            <div class="square"></div>
+        </div>
+        <div class="features__item _anim-items _anim-no-hide">
+            <h3 class="title-h3">Без гриферства</h3>
+            <div class="descr">
+                И без приватов тоже. Всё строится на взаимном доверии и соблюдении правил
+            </div>
+            <div class="square"></div>
+        </div>
+
+    </div>
+</section>
+
+<section class="latest-news latest-news_horizontal">
+    <div class="container">
+        <div class="latest-news__wrapper">
+            <a href="https://sakhcuba.ru/obnovlenie-pravil-ot-30-01-2021/" class="latest-news__item" style="background: url(https://sakhcuba.ru/wp-content/uploads/2021/01/2020-09-28_17.33.56.png) center center/cover no-repeat">
+                <h3 class="title-h3 white">Обновление правил от 30.01.2021</h3>
+                <div class="latest-news__date white">30.01.2021</div>
+            </a>
+
+            <a href="https://sakhcuba.ru/privet-mir/" class="latest-news__item" style="background: url(https://sakhcuba.ru/wp-content/uploads/2021/01/photo2.png) center center/cover no-repeat">
+                <h3 class="title-h3 white">Привет, мир!</h3>
+                <div class="latest-news__date white">17.01.2021</div>
+            </a>
+
+            <a href="https://sakhcuba.ru/a-hummer-sajt-obnovil/" class="latest-news__item" style="background: url(https://sakhcuba.ru/wp-content/uploads/2021/01/photo6.png) center center/cover no-repeat">
+                <h3 class="title-h3 white">Обновление сайта</h3>
+                <div class="latest-news__date white">17.01.2021</div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<section class="join">
+    <div class="container">
+        <img class="join__dragon" src="https://sakhcuba.ru/wp-content/themes/sakhcuba/assets/img/dragon.png" alt="">
+
+        <h2 class="title-h2">Как попасть на сервер?</h2>
+        <div class="join__wrapper">
+            <div>
+                <div class="join__item _anim-items">
+                    <h3 class="title-h3">Прочитать правила</h3>
+                    <div class="descr">
+                        Обязательно ознакомьтесь с <a href="/rules">правилами</a>. Они написаны не просто так!
+                    </div>
+                    <div class="num">1</div>
+                </div>
+                <div class="join__item _anim-items">
+                    <h3 class="title-h3"><a href="/application">Заполнить анкету</a></h3>
+                    <div class="descr">
+                        Думайте, что пишите. Вашу анкету будут проверять реальные люди
+                    </div>
+                    <div class="num">2</div>
+                </div>
+                <div class="join__item _anim-items">
+                    <h3 class="title-h3">Ожидайте</h3>
+                    <div class="descr">
+                        несколько дней. А пока ждёте можете зайти в <a href="https://discord.gg/rGUJvpr" rel="noopener" target="_blank">наш Discord</a>.
+                    </div>
+                    <div class="num">3</div>
+                </div>
+            </div>
+
+            <iframe src="https://discordapp.com/widget?id=697733290752344114&theme=dark" class="discord_widget" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </div>
+    </div>
+</section>

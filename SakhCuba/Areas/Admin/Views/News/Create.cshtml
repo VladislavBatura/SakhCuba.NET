@@ -1,0 +1,53 @@
+﻿@model SakhCuba.Models.NewsViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>News</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="News.Header" class="control-label"></label>
+                <input asp-for="News.Header" class="form-control" />
+                <span asp-validation-for="News.Header" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="News.FirstColumn" class="control-label"></label>
+                <input asp-for="News.FirstColumn" class="form-control" value="" />
+                <span asp-validation-for="News.FirstColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="News.SecondColumn" class="control-label"></label>
+                <input asp-for="News.SecondColumn" class="form-control" value="" />
+                <span asp-validation-for="News.SecondColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="News.ThirdColumn" class="control-label"></label>
+                <input asp-for="News.ThirdColumn" class="form-control" value="" />
+                <span asp-validation-for="News.ThirdColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image.ImageTitle" class="control-label"></label>
+                <input asp-for="Image.ImageTitle" class="form-control" />
+                <span asp-validation-for="Image.ImageTitle" class="text-danger"></span>
+                <label asp-for="Image.ImageFile" class="control-label"></label>
+                <input asp-for="Image.ImageFile" accept="image/*" class="form-control" />
+                <span asp-validation-for="Image.ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -10,6 +10,8 @@ namespace SakhCuba.Models
     {
         public DbSet<Application> Applications { get; set; }
         public DbSet<Decision> Decisions { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Images> Images { get; set; }
         public SakhCubaContext(DbContextOptions<SakhCubaContext> options)
             : base(options)
         {

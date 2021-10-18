@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SakhCuba.Models;
 
 namespace SakhCuba.Migrations
 {
     [DbContext(typeof(SakhCubaContext))]
-    partial class SakhCubaContextModelSnapshot : ModelSnapshot
+    [Migration("20211008080316_NewsAndImagesAdd")]
+    partial class NewsAndImagesAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +82,7 @@ namespace SakhCuba.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImageName");
+                    b.Property<byte[]>("ImageData");
 
                     b.Property<string>("ImageTitle");
 
@@ -88,15 +90,14 @@ namespace SakhCuba.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NewsId")
-                        .IsUnique();
+                    b.HasIndex("NewsId");
 
                     b.ToTable("Images");
                 });
 
             modelBuilder.Entity("SakhCuba.Models.News", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("NewsId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -108,7 +109,7 @@ namespace SakhCuba.Migrations
 
                     b.Property<string>("ThirdColumn");
 
-                    b.HasKey("Id");
+                    b.HasKey("NewsId");
 
                     b.ToTable("News");
                 });
@@ -122,9 +123,9 @@ namespace SakhCuba.Migrations
 
             modelBuilder.Entity("SakhCuba.Models.Images", b =>
                 {
-                    b.HasOne("SakhCuba.Models.News", "News")
-                        .WithOne("Image")
-                        .HasForeignKey("SakhCuba.Models.Images", "NewsId")
+                    b.HasOne("SakhCuba.Models.News")
+                        .WithMany("Images")
+                        .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

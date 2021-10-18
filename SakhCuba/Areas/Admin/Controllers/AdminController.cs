@@ -186,10 +186,5 @@ namespace SakhCuba.Areas.Admin.Controllers
             }
             return NotFound();
         }
-
-        //public async Task<IActionResult> NewsIndex()
-        //{
-
-        //}
     }
 }

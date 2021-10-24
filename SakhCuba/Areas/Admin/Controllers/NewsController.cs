@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SakhCuba.Models;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace SakhCuba.Areas.Admin.Controllers
 {
+    
     [Area("Admin")]
     public class NewsController : Controller
     {
@@ -51,14 +53,12 @@ namespace SakhCuba.Areas.Admin.Controllers
 
         // GET: Admin/News/Create
         [Route("[area]/[controller]/Create")]
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/News/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("[area]/[controller]/[action]")]
@@ -66,18 +66,15 @@ namespace SakhCuba.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string wwwRootPath = _env.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(newsViewModel.Image.ImageFile.FileName);
-                string extension = Path.GetExtension(newsViewModel.Image.ImageFile.FileName);
-                newsViewModel.Image.ImageName = fileName = fileName + DateTime.Now.ToString("yymmss") + extension;
-                string path = Path.Combine(wwwRootPath + "/images/news", fileName);
-                using (var filestream = new FileStream(path, FileMode.Create))
+                News news = new News
                 {
-                    await newsViewModel.Image.ImageFile.CopyToAsync(filestream);
-                }
-                _context.News.Add(newsViewModel.News);
-                newsViewModel.Image.NewsId = newsViewModel.News.Id;
-                _context.Images.Add(newsViewModel.Image);
+                    Header = newsViewModel.Header,
+                    FirstColumn = newsViewModel.FirstColumn,
+                    SecondColumn = newsViewModel.SecondColumn,
+                    ThirdColumn = newsViewModel.ThirdColumn,
+                    Picture = ImageConvertion(newsViewModel.Picture)
+                };
+                _context.News.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -92,13 +89,18 @@ namespace SakhCuba.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            var news = await _context.News.FindAsync(id);
-            if (news == null)
+            News news = await _context.News.FindAsync(id);
+            NewsEditViewModel n = new NewsEditViewModel
             {
-                return NotFound();
-            }
-            return View(news);
+                Id = news.Id.ToString(),
+                Header = news.Header,
+                FirstColumn = news.FirstColumn,
+                SecondColumn = news.SecondColumn,
+                ThirdColumn = news.ThirdColumn,
+                Picture = news.Picture
+            };
+
+            return View(n);
         }
 
         // POST: Admin/News/Edit/5
@@ -107,23 +109,37 @@ namespace SakhCuba.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("[area]/[controller]/[action]")]
-        public async Task<IActionResult> Edit(int id, [Bind("NewsId,Header,FirstColumn,SecondColumn,ThirdColumn")] News news)
+        public async Task<IActionResult> Edit(NewsEditViewModel news)
         {
-            if (id != news.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
+                News n = new News
+                {
+                    Id = int.Parse(news.Id),
+                    Header = news.Header,
+                    FirstColumn = news.FirstColumn,
+                    SecondColumn = news.SecondColumn,
+                    ThirdColumn = news.ThirdColumn
+                };
+
                 try
                 {
-                    _context.Update(news);
-                    await _context.SaveChangesAsync();
+                    if (news.NewPicture != null)
+                    {
+                        n.Picture = ImageConvertion(news.NewPicture);
+                        _context.News.Update(n);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        _context.News.Attach(n);
+                        _context.Entry(n).Property(x => x.Picture).IsModified = false;
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewsExists(news.Id))
+                    if (!NewsExists(n.Id))
                     {
                         return NotFound();
                     }
@@ -147,11 +163,8 @@ namespace SakhCuba.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
-                .FirstOrDefaultAsync(m => m.Id == id);
-            //NewsViewModel newsViewModel = new NewsViewModel();
-            //newsViewModel.News = await _context.News.FirstOrDefaultAsync(i => i.Id == id);
-            //newsViewModel.Image = await _context.Images.FirstOrDefaultAsync(i => i.NewsId == id);
+            var news = await _context.News.FirstOrDefaultAsync(m => m.Id == id);
+
             if (news == null)
             {
                 return NotFound();
@@ -161,29 +174,38 @@ namespace SakhCuba.Areas.Admin.Controllers
         }
 
         // POST: Admin/News/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
+        [ActionName("Delete")]
         [Route("[area]/[controller]/[action]")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            //почему-то если передать картинку в гет, то в посте id всегда будет нулевым
-            var news = await _context.News.FindAsync(id);
-            var image = await _context.Images.FirstAsync(i => i.NewsId == id);
-
-            var imagePath = Path.Combine(_env.WebRootPath, "images/news", image.ImageName);
-            if (System.IO.File.Exists(imagePath))
+            if(id != null)
             {
-                System.IO.File.Delete(imagePath);
+                News news = new News { Id = id.Value };
+                _context.Entry(news).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            _context.Images.Remove(image);
-            _context.News.Remove(news);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return NotFound();
         }
 
         private bool NewsExists(int id)
         {
             return _context.News.Any(e => e.Id == id);
+        }
+
+        private byte[] ImageConvertion(IFormFile image)
+        {
+            if (image != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(image.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)image.Length);
+                }
+                return imageData;
+            }
+            return null;
         }
     }
 }

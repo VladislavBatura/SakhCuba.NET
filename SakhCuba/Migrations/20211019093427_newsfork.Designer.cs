@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SakhCuba.Models;
 
 namespace SakhCuba.Migrations
 {
     [DbContext(typeof(SakhCubaContext))]
-    partial class SakhCubaContextModelSnapshot : ModelSnapshot
+    [Migration("20211019093427_newsfork")]
+    partial class newsfork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +105,7 @@ namespace SakhCuba.Migrations
 
                     b.Property<string>("Header");
 
-                    b.Property<byte[]>("Picture");
+                    b.Property<string>("Picture");
 
                     b.Property<string>("SecondColumn");
 

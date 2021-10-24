@@ -68,7 +68,7 @@ namespace SakhCuba
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{action=Index}",
+                    template: "{action=Index}/{id?}",
                     defaults: new { controller = "Home"});
             });
         }

@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ThirdColumn)
             </th>
+            <th>
+                Картинка
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,6 +44,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ThirdColumn)
+            </td>
+            <td>
+                @if (item.Picture != null)
+                {
+                    <img src="data:image/png;base64,@(Convert.ToBase64String(item.Picture))" height="100px" width="100px" />
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

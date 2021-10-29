@@ -26,7 +26,23 @@ namespace SakhCuba.Controllers
 
         public async Task<IActionResult> News()
         {
-            return View();
+            return View(await _context.News.ToListAsync());
+        }
+
+        public async Task<IActionResult> NewsView(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var news = await _context.News.FirstOrDefaultAsync(i => i.Id == id);
+            if(news == null)
+            {
+                return NotFound();
+            }
+
+            return View(news);
         }
 
         public async Task<IActionResult> Rules()

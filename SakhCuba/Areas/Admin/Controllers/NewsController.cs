@@ -17,9 +17,9 @@ namespace SakhCuba.Areas.Admin.Controllers
     public class NewsController : Controller
     {
         private readonly SakhCubaContext _context;
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
-        public NewsController(SakhCubaContext context, IHostingEnvironment env)
+        public NewsController(SakhCubaContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;
@@ -175,7 +175,6 @@ namespace SakhCuba.Areas.Admin.Controllers
 
         // POST: Admin/News/Delete/5
         [HttpPost]
-        [ActionName("Delete")]
         [Route("[area]/[controller]/[action]")]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {

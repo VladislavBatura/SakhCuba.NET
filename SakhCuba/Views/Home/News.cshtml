@@ -1,7 +1,30 @@
-﻿
+﻿@model IList<SakhCuba.Models.News>
+
 @{
     ViewData["Title"] = "News";
 }
 
 <h2>Новости</h2>
 
+<div style="display:inline-block;">
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <div style="display: inline-block; width: 33%; padding: 30px;">
+            <a asp-action="NewsView" asp-route-id="@Model[i].Id">
+                @if (Model[i].Picture != null)
+                {
+                    <img src="data:image/png;base64,@(Convert.ToBase64String(Model[i].Picture))" style="width:150px; height: 150px;" />
+                }
+                else
+                {
+                    <img alt="@Model[i].Header" />
+                }
+                <h3>@Model[i].Header</h3>
+            </a>
+        </div>
+        if(i % 3 == 2)
+        {
+            <br />
+        }
+    }
+</div>

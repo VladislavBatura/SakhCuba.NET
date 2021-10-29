@@ -35,3 +35,13 @@ body {
         display: none;
     }
 }
+
+#banner {
+    display: flex;
+}
+
+.images {
+    flex: 33.33%;
+    padding: 5px;
+    max-width: 240px;
+}

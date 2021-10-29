@@ -1,0 +1,35 @@
+﻿@model SakhCuba.Models.News
+
+@{
+    ViewData["Title"] = "NewsView";
+}
+
+<h2>@Model.Header</h2>
+
+<div>
+    <hr />
+    <div>
+        <div>
+            <p>@Model.FirstColumn</p>
+        </div>
+        <div>
+            <p>@Model.SecondColumn</p>
+        </div>
+        <div>
+            <p>@Model.ThirdColumn</p>
+        </div>
+        <div>
+            @if (Model.Picture != null)
+            {
+                <img src="data:image/png;base64,@(Convert.ToBase64String(Model.Picture))" style="width:150px; height: 150px;" />
+            }
+            else
+            {
+                <img alt="@Model.Header" />
+            }
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="News">Вернуться</a>
+</div>

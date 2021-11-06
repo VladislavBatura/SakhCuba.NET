@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SakhCuba.Models;
 
 namespace SakhCuba.Migrations
 {
     [DbContext(typeof(SakhCubaContext))]
-    partial class SakhCubaContextModelSnapshot : ModelSnapshot
+    [Migration("20211031071817_authorizeFix")]
+    partial class authorizeFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,9 +277,6 @@ namespace SakhCuba.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SakhCuba.Models;
@@ -9,6 +10,7 @@ using SakhCuba.Models;
 namespace SakhCuba.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly SakhCubaContext _context;

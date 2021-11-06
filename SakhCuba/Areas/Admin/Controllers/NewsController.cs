@@ -9,11 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using SakhCuba.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SakhCuba.Areas.Admin.Controllers
 {
     
     [Area("Admin")]
+    [Authorize]
     public class NewsController : Controller
     {
         private readonly SakhCubaContext _context;

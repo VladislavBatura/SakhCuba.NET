@@ -15,6 +15,7 @@ using SakhCuba.Models;
 //using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using SakhCuba.Middleware;
 using static SakhCuba.Middleware.RequestTimeMiddleware;
+using Microsoft.AspNetCore.Identity;
 
 namespace SakhCuba
 {
@@ -39,6 +40,14 @@ namespace SakhCuba
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SakhCubaContext>(options =>
                 options.UseSqlServer(connection));
+            services.AddIdentity<User, IdentityRole>(opt => { 
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<SakhCubaContext>();
             //services.AddDbContextPool<SakhCubaContext>(options => options
             //    .UseMySql(
             //    Configuration.GetConnectionString("MariaDB"),
@@ -65,7 +74,9 @@ namespace SakhCuba
             app.UseCookiePolicy();
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
